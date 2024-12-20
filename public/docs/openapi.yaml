@@ -1005,7 +1005,7 @@ paths:
     get:
       summary: 'User index'
       operationId: userIndex
-      description: 'Get all the users.'
+      description: 'Shows all the users.'
       parameters: []
       responses:
         200:

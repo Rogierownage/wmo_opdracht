@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "WMO opdracht",
-        "_postman_id": "a394b9ae-ca87-438b-aae1-78fb9b2facf3",
+        "_postman_id": "4923f587-2ffd-4a0a-ac94-ca69f7acdb70",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -141,7 +141,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "Get all the users.",
+                        "description": "Shows all the users.",
                         "auth": {
                             "type": "noauth"
                         }
