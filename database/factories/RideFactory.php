@@ -15,10 +15,10 @@ class RideFactory extends Factory
             'distance' => $this->faker->numberBetween(5, 40),
 
             'from_address' => $this->faker->streetAddress,
-            'from_zip_code' => $this->faker->postcode,
+            'from_zipcode' => $this->faker->postcode,
             'from_city' => $this->faker->city,
             'to_address' => $this->faker->streetAddress,
-            'to_zip_code' => $this->faker->postcode,
+            'to_zipcode' => $this->faker->postcode,
             'to_city' => $this->faker->city,
         ];
     }

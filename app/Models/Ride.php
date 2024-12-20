@@ -15,10 +15,10 @@ class Ride extends Model
     protected $fillable = [
         'distance',
         'from_address',
-        'from_zip_code',
+        'from_zipcode',
         'from_city',
         'to_address',
-        'to_zip_code',
+        'to_zipcode',
         'to_city',
     ];
 

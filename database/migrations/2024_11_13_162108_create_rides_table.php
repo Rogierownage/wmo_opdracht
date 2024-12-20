@@ -17,10 +17,10 @@ return new class extends Migration {
 
             $table->decimal('distance', 10, 3, true);
             $table->string('from_address');
-            $table->string('from_zip_code');
+            $table->string('from_zipcode');
             $table->string('from_city');
             $table->string('to_address');
-            $table->string('to_zip_code');
+            $table->string('to_zipcode');
             $table->string('to_city');
 
             $table->timestamps();

@@ -10,11 +10,25 @@ use App\Models\User;
 
 class RideController extends Controller
 {
+    /**
+     * Ride index for taxi company
+     *
+     * Shows all the rides that the given taxi company is responsible for.
+     *
+     * @group Ride
+     */
     public function index(TaxiCompany $taxiCompany): array
     {
         return Ride::forTaxiCompany($taxiCompany)->get()->toArray();
     }
 
+    /**
+     * Ride store
+     *
+     * Create a new ride.
+     *
+     * @group Ride
+     */
     public function store(StoreRequest $request): array
     {
         $user = User::findOrFail($request->user_id);
