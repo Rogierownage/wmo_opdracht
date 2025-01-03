@@ -39,7 +39,6 @@ class RideController extends Controller
         $budget->current_budget -= $request->distance;
         $budget->save();
 
-
         return $ride->toArray();
     }
 }
