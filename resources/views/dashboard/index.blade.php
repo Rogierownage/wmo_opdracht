@@ -18,6 +18,14 @@
 
                 <p>Active: {{ $wmoBudgetStatusCounts->active_count }}</p>
                 <p>Inactive: {{ $wmoBudgetStatusCounts->inactive_count }}</p>
+
+                <br>
+                <br>
+                <br>
+
+                @foreach($regionsForFirstCompany as $region)
+                    <p>Region: {{ $region->name }} | Company: {{ $region->taxiCompany->name }}</p>
+                @endforeach
             </div>
         </div>
     </div>

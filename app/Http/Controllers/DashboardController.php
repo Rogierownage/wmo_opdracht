@@ -26,9 +26,13 @@ class DashboardController extends Controller
             count(case when active = 0 then 1 end) as inactive_count
         ')->first();
 
+        $regionsForFirstCompany = $taxiCompanies->first()->regions;
+        $regionsForFirstCompany->each->setRelation('taxiCompany', $taxiCompanies->first());
+
         return view('dashboard.index', [
             'taxiCompanies' => $taxiCompanies,
             'wmoBudgetStatusCounts' => $wmoBudgetStatusCounts,
+            'regionsForFirstCompany' => $regionsForFirstCompany,
         ]);
     }
 }
