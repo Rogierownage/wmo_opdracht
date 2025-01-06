@@ -9,7 +9,15 @@
             </div>
             <div class="panel-body">
                 @foreach($taxiCompanies as $company)
-                    <p>{{ $company->lastRegion->name }} | {{ $company->lastRegion->created_at->format('d-m-Y') }}</p>
+                    <p>
+                        Company:
+                        {{ $company->name }} |
+                        Last region:
+                        {{ $company->lastRegion->name }} |
+                        {{ $company->lastRegion->created_at->format('d-m-Y') }} |
+                        Alphabetical first region:
+                        {{ $company->alphabetical_first_region_created_at->format('d-m-Y') }}
+                    </p>
                 @endforeach
 
                 <br>

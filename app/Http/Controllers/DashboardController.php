@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Region;
 use App\Models\TaxiCompany;
 use App\Models\WmoBudget;
 
@@ -17,6 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $taxiCompanies = TaxiCompany::query()
+            ->withAlphabeticalFirstRegionCreatedAt()
             ->withLastRegionId()
             ->with('lastRegion')
             ->get();

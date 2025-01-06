@@ -37,4 +37,17 @@ class TaxiCompany extends Model
                 ->take(1)
         ]);
     }
+
+    public function scopeWithAlphabeticalFirstRegionCreatedAt(Builder $query)
+    {
+        $query
+            ->addSelect(['alphabetical_first_region_created_at' => Region::query()
+                ->select('created_at')
+                ->whereColumn('taxi_company_id', 'taxi_companies.id')
+                ->orderBy('name')
+                ->latest()
+                ->take(1)
+            ])
+            ->withCasts(['alphabetical_first_region_created_at' => 'datetime']);
+    }
 }
