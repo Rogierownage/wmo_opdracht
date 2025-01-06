@@ -8,6 +8,16 @@
                 </h2>
             </div>
             <div class="panel-body">
+                @foreach($taxiCompanies as $company)
+                    <p>{{ $company->lastRegion->name }} | {{ $company->lastRegion->created_at->format('d-m-Y') }}</p>
+                @endforeach
+
+                <br>
+                <br>
+                <br>
+
+                <p>Active: {{ $wmoBudgetStatusCounts->active_count }}</p>
+                <p>Inactive: {{ $wmoBudgetStatusCounts->inactive_count }}</p>
             </div>
         </div>
     </div>

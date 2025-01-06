@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Region;
 use App\Models\TaxiCompany;
+use App\Models\WmoBudget;
 
 class DashboardController extends Controller
 {
@@ -16,20 +16,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $taxiCompanies = TaxiCompany::addSelect([
-            'last_region_created_at' => Region::query()
-                ->select('created_at')
-                ->whereColumn('taxi_company_id', 'taxi_companies.id')
-                ->latest()
-                ->take(1)
-        ])
-        ->withCasts(['last_region_created_at' => 'datetime'])
-        ->get();
+        $taxiCompanies = TaxiCompany::query()
+            ->withLastRegionId()
+            ->with('lastRegion')
+            ->get();
 
-        foreach ($taxiCompanies as $company) {
-            echo $company->last_region_created_at->format('d-m-Y') . '<br>';
-        }
+        $wmoBudgetStatusCounts = WmoBudget::query()->selectRaw('
+            count(case when active = 1 then 1 end) as active_count,
+            count(case when active = 0 then 1 end) as inactive_count
+        ')->first();
 
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            'taxiCompanies' => $taxiCompanies,
+            'wmoBudgetStatusCounts' => $wmoBudgetStatusCounts,
+        ]);
     }
 }
