@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Region;
 use App\Models\TaxiCompany;
 use App\Models\WmoBudget;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -15,7 +16,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $taxiCompanies = TaxiCompany::query()
             ->withAlphabeticalFirstRegionCreatedAt()

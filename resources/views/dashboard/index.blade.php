@@ -12,6 +12,7 @@
                     <p>
                         Company:
                         {{ $company->name }} |
+                        {{ $company->name_normalized }} |
                         Last region:
                         {{ $company->lastRegion->name }} |
                         {{ $company->lastRegion->created_at->format('d-m-Y') }} |
