@@ -12,6 +12,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('name_normalized')->virtualAs("regexp_replace(name, '[^A-Za-z0-9]', '')")->index();
             $table->timestamps();
+
+            $table->index(['name', 'name_normalized']);
         });
     }
 };
