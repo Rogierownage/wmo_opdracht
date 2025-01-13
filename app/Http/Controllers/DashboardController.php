@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Region;
 use App\Models\TaxiCompany;
+use App\Models\User;
 use App\Models\WmoBudget;
 use Illuminate\View\View;
 
@@ -22,6 +23,15 @@ class DashboardController extends Controller
             ->withAlphabeticalFirstRegionCreatedAt()
             ->withLastRegionId()
             ->with('lastRegion')
+            // Companies with odd ID come first
+            ->orderByRaw('id % 2 = 1 desc')
+            ->get();
+
+        $wmoBudgetsSortedByUserName = WmoBudget::query()
+            ->orderBy(
+                User::whereColumn('id', 'wmo_budgets.user_id')->select('name')->take(1)
+            )
+            ->with('user')
             ->get();
 
         $wmoBudgetStatusCounts = WmoBudget::query()->selectRaw('
@@ -36,6 +46,7 @@ class DashboardController extends Controller
             'taxiCompanies' => $taxiCompanies,
             'wmoBudgetStatusCounts' => $wmoBudgetStatusCounts,
             'regionsForFirstCompany' => $regionsForFirstCompany,
+            'wmoBudgetsSortedByUserName' => $wmoBudgetsSortedByUserName,
         ]);
     }
 }

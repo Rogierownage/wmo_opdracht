@@ -13,6 +13,7 @@ class TaxiCompanySeeder extends BaseSeeder
         'Taxi Utrecht',
         'Cheap Taxi Utrecht',
         'Amersfoort Taxi In Motion ',
+        'Connexxion',
     ];
 
     public function handle(): void

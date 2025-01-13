@@ -11,7 +11,8 @@
                 @foreach($taxiCompanies as $company)
                     <p>
                         Company:
-                        {{ $company->name }} |
+                        {{ $company->name }}
+                        ({{ $company->id }}) |
                         {{ $company->name_normalized }} |
                         Last region:
                         {{ $company->lastRegion->name }} |
@@ -35,6 +36,12 @@
                 @foreach($regionsForFirstCompany as $region)
                     <p>Region: {{ $region->name }} | Company: {{ $region->taxiCompany->name }}</p>
                 @endforeach
+
+                <p>
+                    @foreach($wmoBudgetsSortedByUserName as $budget)
+                        {{ $budget->id }}: {{ $budget->user->name }} |
+                    @endforeach
+                </p>
             </div>
         </div>
     </div>
