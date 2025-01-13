@@ -42,6 +42,16 @@ class RegionSeeder extends BaseSeeder
 
             $this->advanceProgressBar();
         }
+
+        $companiesWithoutRegions = TaxiCompany::whereDoesntHave('regions')->get();
+
+        if (!$companiesWithoutRegions->isNotEmpty()) {
+            return;
+        }
+
+        foreach ($companiesWithoutRegions as $company) {
+            Region::factory()->for($company)->create();
+        }
     }
 
     protected function getProgressBarCount(): int

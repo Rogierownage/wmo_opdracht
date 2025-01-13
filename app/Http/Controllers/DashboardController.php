@@ -23,7 +23,7 @@ class DashboardController extends Controller
             ->withAlphabeticalFirstRegionCreatedAt()
             ->withLastRegionId()
             ->with('lastRegion')
-            // Companies with odd ID come first
+            // Companies with odd ID come first.
             ->orderByRaw('id % 2 = 1 desc')
             ->get();
 
@@ -42,11 +42,18 @@ class DashboardController extends Controller
         $regionsForFirstCompany = $taxiCompanies->first()->regions;
         $regionsForFirstCompany->each->setRelation('taxiCompany', $taxiCompanies->first());
 
+        $usersSortedByVerifiedAt = User::query()
+            // Put records at the end where email_verified_at is null.
+            ->orderByRaw('email_verified_at is null')
+            ->orderBy('email_verified_at')
+            ->get();
+
         return view('dashboard.index', [
             'taxiCompanies' => $taxiCompanies,
             'wmoBudgetStatusCounts' => $wmoBudgetStatusCounts,
             'regionsForFirstCompany' => $regionsForFirstCompany,
             'wmoBudgetsSortedByUserName' => $wmoBudgetsSortedByUserName,
+            'usersSortedByVerifiedAt' => $usersSortedByVerifiedAt,
         ]);
     }
 }

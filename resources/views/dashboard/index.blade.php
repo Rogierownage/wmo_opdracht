@@ -42,6 +42,10 @@
                         {{ $budget->id }}: {{ $budget->user->name }} |
                     @endforeach
                 </p>
+
+                @foreach($usersSortedByVerifiedAt as $user)
+                    <p>{{ $user->email_verified_at }} ({{ $user->id }})</p>
+                @endforeach
             </div>
         </div>
     </div>
