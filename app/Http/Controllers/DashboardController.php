@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Models\TaxiCompany;
 use App\Models\User;
 use App\Models\WmoBudget;
+use Illuminate\Support\Facades\Pipeline;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -19,13 +20,14 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        $taxiCompanies = TaxiCompany::query()
-            ->withAlphabeticalFirstRegionCreatedAt()
-            ->withLastRegionId()
-            ->with('lastRegion')
-            // Companies with odd ID come first.
-            ->orderByRaw('id % 2 = 1 desc')
-            ->get();
+        $taxiCompanies = Pipeline::send(TaxiCompany::query())
+            ->through([
+                fn($query, $next) => $next($query->withAlphabeticalFirstRegionCreatedAt()),
+                fn($query, $next) => $next($query->withLastRegionId()),
+                fn($query, $next) => $next($query->with('lastRegion')),
+                fn($query, $next) => $next($query->orderByRaw('id % 2 = 1 desc')),
+            ])
+            ->then(fn($query) => $query->get());
 
         $wmoBudgetsSortedByUserName = WmoBudget::query()
             ->orderBy(
